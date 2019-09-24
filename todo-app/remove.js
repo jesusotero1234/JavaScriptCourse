@@ -16,11 +16,16 @@ const incompleteTodos = todos.filter(function(todos){
     return !todos.completed
 })
 
-const summary = document.createElement('p')
+const summary = document.createElement('h2')
 summary.textContent = `you have ${incompleteTodos.length} todos left`
 document.querySelector('body').appendChild(summary)
 
+todos.forEach(function(todos){
+const p = document.createElement('p')
+p.textContent = todos.text
+document.querySelector('body').appendChild(p)
 
+})
 
 //First excercise remove if contains a word 
 // const ps = document.querySelectorAll('p')
