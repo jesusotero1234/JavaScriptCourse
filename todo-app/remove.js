@@ -11,7 +11,7 @@ completed: false},
 completed: true
 }]
 
-// todos still to complete
+//todos still to complete
 const incompleteTodos = todos.filter(function(todos){
     return !todos.completed
 })
@@ -25,6 +25,11 @@ const p = document.createElement('p')
 p.textContent = todos.text
 document.querySelector('body').appendChild(p)
 
+})
+
+document.querySelector('button').addEventListener('click', function(e){
+console.log('buen trabajo perrita')
+console.log(e)
 })
 
 //First excercise remove if contains a word 
