@@ -20,17 +20,20 @@ const todos = [{
 }]
 
 const filters = {
-    searchContent: ''
+    searchText: ''
 }
 
-const FilterToDos = function (todos, filters) {
-    const filterALL = todos.filter(function (todo) {
-        return todo.text.ToLowercase().includes(filters.searchContent.ToLowercase())
+// const FilterToDos = function (todos, filters) {
+//     const filterALL = todos.filter(function (todos) {
+//         return todos.text.toLowerCase().includes(filters.searchText.toLowerCase())
+//     }
+//     )}
+    const renderTodos = function (todos, filters) {
+        const filteredTodos = todos.filter(function (todo) {
+            return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        })
 
-    }
-    )}
-
-    const incompleteTodos = filterAll.filter(function (todos) {
+    const incompleteTodos = filteredTodos.filter(function (todos) {
         return !todos.completed
     })
 
@@ -41,24 +44,14 @@ const FilterToDos = function (todos, filters) {
     document.querySelector('#division1').appendChild(summary)
 
 
-filterAll.forEach(function (todos) {
-    const p1 = document.createElement('p')
-    p1.textContent = todos.text
-    document.querySelector('#division1').appendChild(p1)
+    filteredTodos.forEach(function (todo) {
+    const p = document.createElement('p')
+    p.textContent = todo.text
+    document.querySelector('#division1').appendChild(p)
 
-})
+})}
 //todos still to complete
-FilterToDos(todos, filters)
-
-
-
-
-
-document.querySelector('#FilterText').addEventListener('input', function (e) {
-    filters.searchContent = e.target.value
-    FilterToDos(todos, filters)
-})
-
+renderTodos(todos, filters)
 
 // todos.forEach(function (todos) {
 //     const p = document.createElement('p')
@@ -77,12 +70,7 @@ document.querySelector('#UserTodo').addEventListener('input', function (e) {
 
 })
 
-
-
-//First excercise remove if contains a word 
-// const ps = document.querySelectorAll('p')
-// ps.forEach(function(p) {
-//     if (p.textContent.includes('p1')) { debugger
-//         p.remove()}
-
-// });
+document.querySelector('#FilterText').addEventListener('input', function (e) {
+    filters.searchText = e.target.value
+    renderTodos(todos, filters)
+})
