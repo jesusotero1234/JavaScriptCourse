@@ -40,6 +40,11 @@ document.querySelector('#AddTodo').addEventListener('click', function (e) {
     console.log(e)
 })
 
+document.querySelector('#UserTodo').addEventListener('input',function(e){
+console.log(e.target.value) 
+
+})
+
 //First excercise remove if contains a word 
 // const ps = document.querySelectorAll('p')
 // ps.forEach(function(p) {
