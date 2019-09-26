@@ -24,23 +24,23 @@ const todos = [{
 
 
 const filters = {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false
 }
 
-// const FilterToDos = function (todos, filters) {
-//     const filterALL = todos.filter(function (todos) {
-//         return todos.text.toLowerCase().includes(filters.searchText.toLowerCase())
-//     }
-//     )}
 const renderTodos = function (todos, filters) {
-    const filteredTodos = todos.filter(function (todo) {
+    let filteredTodos = todos.filter(function (todo) {
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
+    filteredTodos = filteredTodos.filter(function (todo) {
+       if (filters.hideCompleted) {
+            return !todo.completed
+       } else {return true} 
     })
 
     const incompleteTodos = filteredTodos.filter(function (todos) {
         return !todos.completed
     })
-
     document.querySelector('#division1').innerHTML = ''
 
     const summary = document.createElement('h2')
@@ -54,6 +54,8 @@ const renderTodos = function (todos, filters) {
         document.querySelector('#division1').appendChild(p)
 
     })
+
+
 }
 //todos still to complete
 renderTodos(todos, filters)
@@ -76,4 +78,10 @@ document.querySelector('#formTodo').addEventListener('submit', function (e) {
     AddToDo(e.target.elements.Addtodo.value)
     renderTodos(todos, filters)
     e.target.elements.Addtodo.value = ''
+})
+
+document.querySelector('#checkboxtodo').addEventListener('change', function (e) {
+        filters.hideCompleted =  e.target.checked
+        renderTodos(todos, filters)
+    
 })
