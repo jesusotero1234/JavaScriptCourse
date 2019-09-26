@@ -19,6 +19,10 @@ const todos = [{
     completed: true
 }]
 
+
+
+
+
 const filters = {
     searchText: ''
 }
@@ -28,10 +32,10 @@ const filters = {
 //         return todos.text.toLowerCase().includes(filters.searchText.toLowerCase())
 //     }
 //     )}
-    const renderTodos = function (todos, filters) {
-        const filteredTodos = todos.filter(function (todo) {
-            return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-        })
+const renderTodos = function (todos, filters) {
+    const filteredTodos = todos.filter(function (todo) {
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
 
     const incompleteTodos = filteredTodos.filter(function (todos) {
         return !todos.completed
@@ -45,32 +49,31 @@ const filters = {
 
 
     filteredTodos.forEach(function (todo) {
-    const p = document.createElement('p')
-    p.textContent = todo.text
-    document.querySelector('#division1').appendChild(p)
+        const p = document.createElement('p')
+        p.textContent = todo.text
+        document.querySelector('#division1').appendChild(p)
 
-})}
+    })
+}
 //todos still to complete
 renderTodos(todos, filters)
 
-// todos.forEach(function (todos) {
-//     const p = document.createElement('p')
-//     p.textContent = todos.text
-//     document.querySelector('#division1').appendChild(p)
+const AddToDo = function (text) {
 
-// })
-
-document.querySelector('#AddTodo').addEventListener('click', function (e) {
-    console.log('buen trabajo perrita')
-    console.log(e)
-})
-
-document.querySelector('#UserTodo').addEventListener('input', function (e) {
-    console.log(e.target.value)
-
-})
-
+    todos.push({
+        text: text,
+        completed: false
+    })
+}
 document.querySelector('#FilterText').addEventListener('input', function (e) {
     filters.searchText = e.target.value
     renderTodos(todos, filters)
+})
+
+document.querySelector('#formTodo').addEventListener('submit', function (e) {
+    e.preventDefault()
+    console.log(e.target.elements.Addtodo.value)
+    AddToDo(e.target.elements.Addtodo.value)
+    renderTodos(todos, filters)
+    e.target.elements.Addtodo.value = ''
 })
