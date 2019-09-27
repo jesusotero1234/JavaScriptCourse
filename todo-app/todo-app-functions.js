@@ -1,22 +1,27 @@
 //Fetch existing todos from localStorage
 
-const readLocalStorage = function(todos){
-const textJSON = localStorage.getItem('newtodo')
-if (textJSON !== null) {
-    return todos = JSON.parse(textJSON)
-}else {return []}
+const readLocalStorage = function (todos) {
+    const textJSON = localStorage.getItem('newtodo')
+    if (textJSON !== null) {
+        return todos = JSON.parse(textJSON)
+    } else { return [] }
 }
 
 //Save todos LocalSotrage
-const saveLocalStoragetodos = function(todos,e){
-todos.push({
-    text: e,
-    completed: false
-})
-console.log(e)
-let JSONtodo = JSON.stringify(todos)
-return localStorage.setItem('newtodo', JSONtodo)
+const saveLocalStoragetodos = function (todos, e) {
+    todos.push({
+        id: uuidv4(),
+        text: e,
+        completed: false
+    })
+    console.log(e)
+    let JSONtodo = JSON.stringify(todos)
+    return localStorage.setItem('newtodo', JSONtodo)
 
+}
+//Save todos localStorage
+const saveTodos = function(todos){
+localStorage.setItem('newtodo', JSON.stringify(todos))
 }
 
 //Render aplication based on filters
@@ -35,32 +40,49 @@ const renderTodos = function (todos, filters) {
     document.querySelector('#division1').innerHTML = ''
 
 
-    
+
     document.querySelector('#division1').appendChild(generateSummaryDOM(incompleteTodos))
 
 
     filteredTodos.forEach(function (todo) {
-        
+
         document.querySelector('#division1').appendChild(individualNote(todo))
 
     })
 }
 
+//remove Item from the list when clicked
+
+const removeItem = function (id) {
+  const todoIndex = todos.findIndex(function (todos) {    
+   return todos.id === id})
+   if (todoIndex > -1){
+     todos.splice(todoIndex,1)
+   
+}}
+    
+         
+
 //Get the DOM elements for an individual note
 
-const individualNote = function(todo){
+const individualNote = function (todo) {
     //necesario para poder generar cada nota con todos los alementos que necesitamos
     const p = document.createElement('div')
     const checboxtest = document.createElement('input')
     const indivButton = document.createElement('button')
     // crea un input que se mueve y asi se coloca a un lado 
-    const divforNotes  = document.createElement('span')
-    
-// esto de checboxtest es para crear un checkbox    
-checboxtest.setAttribute('type','checkbox')
-p.appendChild(checboxtest)
+    const divforNotes = document.createElement('span')
+
+    // esto de checboxtest es para crear un checkbox    
+    checboxtest.setAttribute('type', 'checkbox')
+    p.appendChild(checboxtest)
     indivButton.textContent = 'x'
-   
+    indivButton.addEventListener('click', function () {
+        removeItem(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
+
     if (todo.text.length > 0) {
         divforNotes.textContent = todo.text
     }
@@ -69,11 +91,11 @@ p.appendChild(checboxtest)
     p.appendChild(divforNotes)
     p.appendChild(indivButton)
     return p
-} 
+}
 
 //DOM elements for the list summary
-const generateSummaryDOM = function(incompleteTodos){
-const summary = document.createElement('h2')
+const generateSummaryDOM = function (incompleteTodos) {
+    const summary = document.createElement('h2')
     summary.textContent = `you have ${incompleteTodos.length} todos left`
     return summary
 }
