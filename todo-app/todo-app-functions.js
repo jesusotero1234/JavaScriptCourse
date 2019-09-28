@@ -20,8 +20,8 @@ const saveLocalStoragetodos = function (todos, e) {
 
 }
 //Save todos localStorage
-const saveTodos = function(todos){
-localStorage.setItem('newtodo', JSON.stringify(todos))
+const saveTodos = function (todos) {
+    localStorage.setItem('newtodo', JSON.stringify(todos))
 }
 
 //Render aplication based on filters
@@ -54,42 +54,71 @@ const renderTodos = function (todos, filters) {
 //remove Item from the list when clicked
 
 const removeItem = function (id) {
-  const todoIndex = todos.findIndex(function (todos) {    
-   return todos.id === id})
-   if (todoIndex > -1){
-     todos.splice(todoIndex,1)
-   
-}}
-    
-         
+    const todoIndex = todos.findIndex(function (todos) {
+        return todos.id === id
+    })
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
+}
 
+//toggle the boolean if the checkbox has been marked
+
+const toggleItem = function (id) {
+    let todoIndex = todos.findIndex(function (todos) {
+        return todos.id === id
+    })
+    if (todoIndex > -1) {
+        if (todos[todoIndex].completed) {todos[todoIndex].completed = false}
+        else if (!todos[todoIndex].completed){todos[todoIndex].completed = true}
+        console.log(todos[todoIndex].completed)
+    }
+ 
+}
 //Get the DOM elements for an individual note
 
 const individualNote = function (todo) {
     //necesario para poder generar cada nota con todos los alementos que necesitamos
     const p = document.createElement('div')
-    const checboxtest = document.createElement('input')
+    const checkboxtest = document.createElement('input')
     const indivButton = document.createElement('button')
     // crea un input que se mueve y asi se coloca a un lado 
     const divforNotes = document.createElement('span')
 
     // esto de checboxtest es para crear un checkbox    
-    checboxtest.setAttribute('type', 'checkbox')
-    p.appendChild(checboxtest)
+    checkboxtest.setAttribute('type', 'checkbox')
+
+    //si el todo esta completado que se marque la casilla
+    
+    //cambiar a true cuando se le da click al checkbox
+   
+    checkboxtest.checked = todo.completed
+    p.appendChild(checkboxtest)
+
+
     indivButton.textContent = 'x'
     indivButton.addEventListener('click', function () {
-        removeItem(todo.id)
-        saveTodos(todos)
-        renderTodos(todos, filters)
+        if (!checkboxtest.checked) {
+            removeItem(todo.id)
+            saveTodos(todos)
+            renderTodos(todos, filters)
+        }
     })
+
 
     if (todo.text.length > 0) {
         divforNotes.textContent = todo.text
     }
     else { divforNotes.textContent = "No name written" }
     //el orden que se escribe es el orden mostrado
+    checkboxtest.addEventListener('change', function () {
+        toggleItem(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
     p.appendChild(divforNotes)
     p.appendChild(indivButton)
+
     return p
 }
 
