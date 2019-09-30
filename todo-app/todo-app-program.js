@@ -16,8 +16,10 @@ document.querySelector('#FilterText').addEventListener('input', function (e) {
 document.querySelector('#formTodo').addEventListener('submit', function (e) {
     e.preventDefault()
     saveLocalStoragetodos(todos,e.target.elements.Addtodo.value)
-    renderTodos(todos, filters)
+    // renderTodos(todos, filters)
     e.target.elements.Addtodo.value = ''
+    document.location.assign(`/edit.html#${todos.pop().id}`)
+    debugger
 })
 
 document.querySelector('#checkboxtodo').addEventListener('change', function (e) {

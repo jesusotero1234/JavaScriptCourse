@@ -49,6 +49,7 @@ const renderTodos = function (todos, filters) {
         document.querySelector('#division1').appendChild(individualNote(todo))
 
     })
+   
 }
 
 //remove Item from the list when clicked
@@ -82,16 +83,16 @@ const individualNote = function (todo) {
     const p = document.createElement('div')
     const checkboxtest = document.createElement('input')
     const indivButton = document.createElement('button')
-    // crea un input que se mueve y asi se coloca a un lado 
-    const divforNotes = document.createElement('span')
+    // Utilizar un anchor para cambiar de website
+    const divforNotes = document.createElement('a')
 
+const prueba = document.querySelector('#prueba')
     // esto de checboxtest es para crear un checkbox    
     checkboxtest.setAttribute('type', 'checkbox')
 
     //si el todo esta completado que se marque la casilla
     
     //cambiar a true cuando se le da click al checkbox
-   
     checkboxtest.checked = todo.completed
     p.appendChild(checkboxtest)
 
@@ -110,6 +111,7 @@ const individualNote = function (todo) {
         divforNotes.textContent = todo.text
     }
     else { divforNotes.textContent = "No name written" }
+    divforNotes.setAttribute('href', `/edit.html#${todo.id}`)
     //el orden que se escribe es el orden mostrado
     checkboxtest.addEventListener('change', function () {
         toggleItem(todo.id)
@@ -118,6 +120,7 @@ const individualNote = function (todo) {
     })
     p.appendChild(divforNotes)
     p.appendChild(indivButton)
+
 
     return p
 }
@@ -128,3 +131,4 @@ const generateSummaryDOM = function (incompleteTodos) {
     summary.textContent = `you have ${incompleteTodos.length} todos left`
     return summary
 }
+
