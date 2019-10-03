@@ -34,30 +34,7 @@ window.addEventListener('storage', function (e) {
     }
 })
 
-// Unix Epoch - January 1st 1970 00:00:00
-
-const now = new Date()
-const timestamp = now.getTime()
-
-const myDate = new Date(timestamp)
-console.log(myDate.getFullYear())
-
-// console.log(`Year: ${now.getFullYear()}`)
-// console.log(`Month: ${now.getMonth()}`)
-// console.log(`Day of month: ${now.getDate()}`)
-// console.log(`Hour: ${now.getHours()}`)
-// console.log(`Minute: ${now.getMinutes()}`)
-// console.log(`Seconds: ${now.getSeconds()}`)
-
-// 1. Create two dates in the past (use string for Date)
-// 2. Get timestamps for both
-// 3. Figure out which is first and print its time (use toString)
-
-const firstDateTest = new Date('June 29 1991 00:00:00')
-const secondDateTest = new Date('October 7 1991 00:00:00')
-const timeStamp1 = firstDateTest.getTime()
-const timeStamp2 = secondDateTest.getTime()
-
-if (timeStamp1 < timeStamp2) {
-console.log(firstDateTest.toString())
-}else {console.log(secondDateTest.toString())}
+// With Moment Library example
+const now = moment()
+now.month(5).date(29).year(1991)
+console.log(now.format(' MMM D, YYYY'))
