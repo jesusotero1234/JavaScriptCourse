@@ -53,13 +53,11 @@ console.log(myDate.getFullYear())
 // 2. Get timestamps for both
 // 3. Figure out which is first and print its time (use toString)
 
-const dateOne = new Date('March 1 2017 12:00:00')
-const dateTwo = new Date()
-const dateOneTimestamp = dateOne.getTime()
-const dateTwoTimestamp = dateTwo.getTime()
+const firstDateTest = new Date('June 29 1991 00:00:00')
+const secondDateTest = new Date('October 7 1991 00:00:00')
+const timeStamp1 = firstDateTest.getTime()
+const timeStamp2 = secondDateTest.getTime()
 
-if (dateOneTimestamp < dateTwoTimestamp) {
-    console.log(dateOne.toString())
-} else if (dateTwoTimestamp < dateOneTimestamp) {
-    console.log(dateTwo.toString())
-}
+if (timeStamp1 < timeStamp2) {
+console.log(firstDateTest.toString())
+}else {console.log(secondDateTest.toString())}
