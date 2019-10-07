@@ -2,9 +2,8 @@
 
 const readLocalStorage = (todos) => {
     const textJSON = localStorage.getItem('newtodo')
-    if (textJSON !== null) {
-        return todos = JSON.parse(textJSON)
-    } else { return [] }
+    return textJSON !== null? JSON.parse(textJSON) : []
+  
 }
 
 //Save todos LocalSotrage
@@ -119,7 +118,7 @@ const individualNote = (todo) => {
 }
 
 //DOM elements for the list summary
-const generateSummaryDOM = (incompleteTodos) => {
+const generateSummaryDOM = (incompleteTodos) =>{
     const summary = document.createElement('h2')
     summary.textContent = `you have ${incompleteTodos.length} todos left`
     return summary
