@@ -1,6 +1,6 @@
 //Fetch existing todos from localStorage
 
-const readLocalStorage = function (todos) {
+const readLocalStorage = (todos) => {
     const textJSON = localStorage.getItem('newtodo')
     if (textJSON !== null) {
         return todos = JSON.parse(textJSON)
@@ -8,7 +8,7 @@ const readLocalStorage = function (todos) {
 }
 
 //Save todos LocalSotrage
-const saveLocalStoragetodos = function (todos, e) {
+const saveLocalStoragetodos = (todos, e) => {
     todos.push({
         id: uuidv4(),
         text: e,
@@ -20,23 +20,20 @@ const saveLocalStoragetodos = function (todos, e) {
 
 }
 //Save todos localStorage
-const saveTodos = function (todos) {
+const saveTodos = (todos) => {
     localStorage.setItem('newtodo', JSON.stringify(todos))
 }
 
 //Render aplication based on filters
-const renderTodos = function (todos, filters) {
-    let filteredTodos = todos.filter(function (todo) {
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-    })
-    filteredTodos = filteredTodos.filter(function (todo) {
+const renderTodos = (todos, filters) => {
+    let filteredTodos = todos.filter((todo) => todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+    )
+    filteredTodos = filteredTodos.filter((todo) => {
         if (filters.hideCompleted) {
             return !todo.completed
         } else { return true }
     })
-    const incompleteTodos = filteredTodos.filter(function (todos) {
-        return !todos.completed
-    })
+    const incompleteTodos = filteredTodos.filter((todos) => !todos.completed)
     document.querySelector('#division1').innerHTML = ''
 
 
@@ -44,20 +41,16 @@ const renderTodos = function (todos, filters) {
     document.querySelector('#division1').appendChild(generateSummaryDOM(incompleteTodos))
 
 
-    filteredTodos.forEach(function (todo) {
+    filteredTodos.forEach((todo) => document.querySelector('#division1').appendChild(individualNote(todo)))
 
-        document.querySelector('#division1').appendChild(individualNote(todo))
-
-    })
-   
 }
 
 //remove Item from the list when clicked
 
-const removeItem = function (id) {
-    const todoIndex = todos.findIndex(function (todos) {
-        return todos.id === id
-    })
+const removeItem = (id) => {
+    const todoIndex = todos.findIndex((todos) => todos.id === id)
+   
+   
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
     }
@@ -66,19 +59,19 @@ const removeItem = function (id) {
 //toggle the boolean if the checkbox has been marked
 
 const toggleItem = function (id) {
-    let todoIndex = todos.findIndex(function (todos) {
-        return todos.id === id
-    })
+    let todoIndex = todos.findIndex( (todos) => todos.id === id)
+      
+    
     if (todoIndex > -1) {
-        if (todos[todoIndex].completed) {todos[todoIndex].completed = false}
-        else if (!todos[todoIndex].completed){todos[todoIndex].completed = true}
+        if (todos[todoIndex].completed) { todos[todoIndex].completed = false }
+        else if (!todos[todoIndex].completed) { todos[todoIndex].completed = true }
         console.log(todos[todoIndex].completed)
     }
- 
+
 }
 //Get the DOM elements for an individual note
 
-const individualNote = function (todo) {
+const individualNote = (todo) => {
     //necesario para poder generar cada nota con todos los alementos que necesitamos
     const p = document.createElement('div')
     const checkboxtest = document.createElement('input')
@@ -86,19 +79,19 @@ const individualNote = function (todo) {
     // Utilizar un anchor para cambiar de website
     const divforNotes = document.createElement('a')
 
-const prueba = document.querySelector('#prueba')
+    const prueba = document.querySelector('#prueba')
     // esto de checboxtest es para crear un checkbox    
     checkboxtest.setAttribute('type', 'checkbox')
 
     //si el todo esta completado que se marque la casilla
-    
+
     //cambiar a true cuando se le da click al checkbox
     checkboxtest.checked = todo.completed
     p.appendChild(checkboxtest)
 
 
     indivButton.textContent = 'x'
-    indivButton.addEventListener('click', function () {
+    indivButton.addEventListener('click', () => {
         if (!checkboxtest.checked) {
             removeItem(todo.id)
             saveTodos(todos)
@@ -126,7 +119,7 @@ const prueba = document.querySelector('#prueba')
 }
 
 //DOM elements for the list summary
-const generateSummaryDOM = function (incompleteTodos) {
+const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
     summary.textContent = `you have ${incompleteTodos.length} todos left`
     return summary

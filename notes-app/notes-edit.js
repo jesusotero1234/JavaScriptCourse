@@ -17,27 +17,27 @@ bodyElement.value = note.body
 LastTimeEdited.textContent = generateLastEdited(note.updatedAt)
 
 
-titleElement.addEventListener('input', function (e) {
+titleElement.addEventListener('input',  (e) => {
     note.title = e.target.value
     note.updatedAt = moment().valueOf()
     LastTimeEdited.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
-bodyElement.addEventListener('input', function (e) {
+bodyElement.addEventListener('input', (e) => {
     note.body = e.target.value
     note.updatedAt = moment().valueOf()
     LastTimeEdited.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
-removeElement.addEventListener('click', function (e) {
+removeElement.addEventListener('click', (e)  => {
     removeNote(note.id)
     saveNotes(notes)
     location.assign('/index.html')
 })
 
-window.addEventListener('storage', function (e) {
+window.addEventListener('storage', (e) => {
     if (e.key === 'notes') {
         notes = JSON.parse(e.newValue)
         note = notes.find(function (note) {
