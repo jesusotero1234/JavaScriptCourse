@@ -2,7 +2,7 @@
 
 const readLocalStorage = (todos) => {
     const textJSON = localStorage.getItem('newtodo')
-    return textJSON !== null? JSON.parse(textJSON) : []
+    return textJSON ? JSON.parse(textJSON) : []
   
 }
 
