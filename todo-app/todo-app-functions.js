@@ -2,8 +2,14 @@
 
 const readLocalStorage = (todos) => {
     const textJSON = localStorage.getItem('newtodo')
-    return textJSON ? JSON.parse(textJSON) : []
-  
+
+    try {
+        return textJSON ? JSON.parse(textJSON) : []
+    }
+    catch (e) {
+        return []
+    }
+
 }
 
 //Save todos LocalSotrage
@@ -48,8 +54,8 @@ const renderTodos = (todos, filters) => {
 
 const removeItem = (id) => {
     const todoIndex = todos.findIndex((todos) => todos.id === id)
-   
-   
+
+
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
     }
@@ -58,9 +64,9 @@ const removeItem = (id) => {
 //toggle the boolean if the checkbox has been marked
 
 const toggleItem = function (id) {
-    let todoIndex = todos.findIndex( (todos) => todos.id === id)
-      
-    
+    let todoIndex = todos.findIndex((todos) => todos.id === id)
+
+
     if (todoIndex > -1) {
         if (todos[todoIndex].completed) { todos[todoIndex].completed = false }
         else if (!todos[todoIndex].completed) { todos[todoIndex].completed = true }
@@ -118,7 +124,7 @@ const individualNote = (todo) => {
 }
 
 //DOM elements for the list summary
-const generateSummaryDOM = (incompleteTodos) =>{
+const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
     summary.textContent = `you have ${incompleteTodos.length} todos left`
     return summary
