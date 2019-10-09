@@ -1,51 +1,20 @@
-const Hangman = function (word, remainGuesses) {
-
-    this.word = word.toLowerCase().split('')
-    
-    this.letterGuessed = []
-    this.remainGuesses = remainGuesses
-    // console.log(this.letterGuessed)
-}
 
 
-Hangman.prototype.getPuzzle = function () {
-    let puzzle = ''
-    this.word.forEach((letters) => {
+const test1 = new Hangman('Cat', 2)
+
+let RemainguessesEL = document.querySelector('#remainGuesses')
 
 
-        if (this.letterGuessed.includes(letters) || letters === ' ') {
-            puzzle += letters
-        } else {
-            puzzle += '*'
+const puzzleEL = document.querySelector('#showWord')
+// remainGuesses.textContent = test1.getPuzzle()
+puzzleEL.textContent = test1.getPuzzle()
+RemainguessesEL.textContent = test1.remainGuesses
+console.log(test1.status)
 
-
-        }
-    })
-    return puzzle
-}
-
-
-Hangman.prototype.makeGuess = function (guess) {
-    guess = guess.toLowerCase()
-    const isUnique = !this.letterGuessed.includes(guess)
-    const isBadGuess = !this.word.includes(guess)
-
-    // if (typeof guess !== 'string') {
-    //     // debugger
-    //     throw Error('character must be a letter')
-    // }
-
-    if (isUnique) {
-        this.letterGuessed.push(guess)
-
-    }
-
-    if (isUnique && isBadGuess) {
-     this.remainGuesses --
-      
-    }
-    
-
-
-
-}
+document.querySelector('#guessInput').addEventListener('keypress',function(e){
+const guess = String.fromCharCode(e.charCode)
+test1.makeGuess(guess)
+puzzleEL.textContent = test1.getPuzzle()
+RemainguessesEL.textContent = test1.remainGuesses
+console.log(test1.status)
+})
