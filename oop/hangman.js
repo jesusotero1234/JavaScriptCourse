@@ -9,7 +9,7 @@ class Hangman {
 
         let finished = true
         this.word.forEach((letter) => {
-            if (this.letterGuessed.includes(letter)) {
+            if (this.letterGuessed.includes(letter) || letter === ' ' ){
 
             } else { finished = false }
 
@@ -23,7 +23,7 @@ class Hangman {
 
         else { this.status = 'playing' }
     }
-    getPuzzle() {
+   get puzzle() {
         let puzzle = ''
         this.word.forEach((letters) => {
 
@@ -38,6 +38,7 @@ class Hangman {
         })
         return puzzle
     }
+    
     makeGuess(guess) {
         guess = guess.toLowerCase()
         const isUnique = !this.letterGuessed.includes(guess)
@@ -59,7 +60,7 @@ class Hangman {
         }
         this.calculatestatus()
     }
-    statusBack() {
+   get  statusMessage() {
 
         if (this.status === 'playing') { return `Guesses left: ${this.remainGuesses}` }
         else if (this.status === 'failed') { return `Nice try! the word was "${this.word.join('')}"` }

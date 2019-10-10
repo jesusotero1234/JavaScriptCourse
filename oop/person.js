@@ -56,7 +56,7 @@ return `${this.firstName} is ${status} the class`
 // console.log(me.getBio())
 
 // const person2 = new Person('Clancey', 'Turner', 51)
-// console.log(person2.getBio())
+// console.l og(person2.getBio())
 
 const person3= new Student('Jesus', 'Otero', 28, [], 70)
 person3.updateGrade(-5)
