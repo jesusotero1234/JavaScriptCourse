@@ -22,30 +22,7 @@ document.querySelector('#guessInput').addEventListener('keypress', function (e) 
 })
 
 
-
-
-const getCountryDetails = (word, callback) => {
-    const request = new XMLHttpRequest()
-    request.addEventListener('readystatechange', (e) => {
-        if (e.target.status === 200 && e.target.readyState === 4) {
-            const data = JSON.parse(e.target.responseText)
-             const country = data.find((country) => country.alpha2Code === word)
-            callback(undefined,country)
-        } else if (e.target.readyState === 4) {
-            callback('An error has taken place',undefined)
-        }
-    })
-
-request.open('GET', 'http://restcountries.eu/rest/v2/all')
-request.send()
-}
-
-const countryCode = 'MX'
-
-getCountryDetails(countryCode, (error, country) =>{
-if (error){
+getCountryDetails(countryCode).then((data) =>{
+console.log(data)}, (error)=>{
     console.log(`Error: ${error}`)
-}
-else{console.log(country)}
-
 })
