@@ -20,9 +20,7 @@ document.querySelector('#guessInput').addEventListener('keypress', function (e) 
     RemainguessesEL.textContent = test1.statusMessage
     console.log(test1.status)
 })
-
-
 getCountryDetails(countryCode).then((data) =>{
-console.log(data)}, (error)=>{
+console.log(data)}).catch((error)=>{
     console.log(`Error: ${error}`)
 })
