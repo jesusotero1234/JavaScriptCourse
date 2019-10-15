@@ -20,12 +20,18 @@ document.querySelector('#guessInput').addEventListener('keypress', function (e) 
     RemainguessesEL.textContent = test1.statusMessage
     console.log(test1.status)
 })
-getCountryDetails(countryCode).then((data) => {
-    console.log(data)
-}).catch((error) => {
-    console.log(`Error: ${error}`)
-})
+// getCountryDetails(countryCode).then((data) => {
+//     console.log(data.name)
+// }).catch((error) => {
+//     console.log(`Error: ${error}`)
+// })
 
-getLocation().then((data) => {
-   return getCountryDetails(data.country).then((data) => console.log(data.name))
-}).catch((error) => console.log(error))
+// getLocation().then((data) => {
+//    return getCountryDetails(data.country).then((data) => console.log(data.name))
+// }).catch((error) => console.log(error))
+
+getCurrentCountry().then((country)=>{
+console.log(country.name)
+}).catch((error)=>{
+console.log(error)
+})
