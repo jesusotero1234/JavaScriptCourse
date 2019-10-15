@@ -1,4 +1,13 @@
-
+const getPuzzle = async (wordCount) => {
+    const response = await fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+    
+    if (response.status === 200) {
+        const data = await response.json()
+        return data.puzzle
+    } else {
+        throw new Error('Unable to get puzzle')
+    }
+}
 const getCountryDetails = async (word) => {
     let response = await fetch('http://restcountries.eu/rest/v2/all')
     if (response.status == 200) { response = await response.json() }
