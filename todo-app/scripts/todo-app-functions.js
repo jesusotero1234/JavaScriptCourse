@@ -14,14 +14,16 @@ const readLocalStorage = (todos) => {
 
 //Save todos LocalSotrage
 const saveLocalStoragetodos = (todos, e) => {
-    todos.push({
-        id: uuidv4(),
-        text: e,
-        completed: false
-    })
-    console.log(e)
-    let JSONtodo = JSON.stringify(todos)
-    return localStorage.setItem('newtodo', JSONtodo)
+    if (e.length > 0) {
+        todos.push({
+            id: uuidv4(),
+            text: e,
+            completed: false
+        })
+        let JSONtodo = JSON.stringify(todos)
+        return localStorage.setItem('newtodo', JSONtodo)
+    }
+    else { throw Error('No blank notes allowed') }
 
 }
 //Save todos localStorage
@@ -45,9 +47,14 @@ const renderTodos = (todos, filters) => {
 
     document.querySelector('#division1').appendChild(generateSummaryDOM(incompleteTodos))
 
-
+if(filteredTodos.length > 0 ){
     filteredTodos.forEach((todo) => document.querySelector('#division1').appendChild(individualNote(todo)))
-
+}
+else{ const messageEl = document.createElement('p')
+messageEl.classList.add('empty-message')
+messageEl.textContent = 'No to-dos to show'
+document.querySelector('#division1').appendChild(messageEl)
+}
 }
 
 //remove Item from the list when clicked
@@ -78,13 +85,12 @@ const toggleItem = function (id) {
 
 const individualNote = (todo) => {
     //necesario para poder generar cada nota con todos los alementos que necesitamos
-    const p = document.createElement('div')
+    const todoEL = document.createElement('label')
+    const containerEL = document.createElement('div')
     const checkboxtest = document.createElement('input')
     const indivButton = document.createElement('button')
     // Utilizar un anchor para cambiar de website
-    const divforNotes = document.createElement('a')
-
-    const prueba = document.querySelector('#prueba')
+    const divforNotes = document.createElement('span')
     // esto de checboxtest es para crear un checkbox    
     checkboxtest.setAttribute('type', 'checkbox')
 
@@ -92,10 +98,27 @@ const individualNote = (todo) => {
 
     //cambiar a true cuando se le da click al checkbox
     checkboxtest.checked = todo.completed
-    p.appendChild(checkboxtest)
+    containerEL.appendChild(checkboxtest)
+    checkboxtest.addEventListener('change', function () {
+        toggleItem(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
+    if (todo.text.length > 0) {
+        divforNotes.textContent = todo.text
+        containerEL.appendChild(divforNotes)
+    }
+    else { divforNotes.textContent = "No name written" }
 
+    divforNotes.setAttribute('href', `/edit.html#${todo.id}`)
+   
+    todoEL.classList.add('list-item')
+    containerEL.classList.add('list--item__container')
+    todoEL.appendChild(containerEL)
 
-    indivButton.textContent = 'x'
+    indivButton.textContent = 'remove'
+    indivButton.classList.add('button', 'button--text')
+    todoEL.appendChild(indivButton)
     indivButton.addEventListener('click', () => {
         if (!checkboxtest.checked) {
             removeItem(todo.id)
@@ -103,30 +126,15 @@ const individualNote = (todo) => {
             renderTodos(todos, filters)
         }
     })
-
-
-    if (todo.text.length > 0) {
-        divforNotes.textContent = todo.text
-    }
-    else { divforNotes.textContent = "No name written" }
-    divforNotes.setAttribute('href', `/edit.html#${todo.id}`)
-    //el orden que se escribe es el orden mostrado
-    checkboxtest.addEventListener('change', function () {
-        toggleItem(todo.id)
-        saveTodos(todos)
-        renderTodos(todos, filters)
-    })
-    p.appendChild(divforNotes)
-    p.appendChild(indivButton)
-
-
-    return p
+    return todoEL
 }
 
 //DOM elements for the list summary
 const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
-    summary.textContent = `you have ${incompleteTodos.length} todos left`
+    summary.classList.add('list-little')
+    const plural = incompleteTodos.length === 1? '' : 's'
+    summary.textContent = `you have ${incompleteTodos.length} todo${plural} left`
     return summary
 }
 
