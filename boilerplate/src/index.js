@@ -1,10 +1,4 @@
-class Hangman {
+import scream2 from './scream'
 
-    mymMethod(test) {
-
-        return test
-    }
-}
-
-const hangman = new Hangman()
-console.log(hangman.mymMethod('hola'))
+console.log(scream2('mamame el webo'))
+console.log('index.js')
