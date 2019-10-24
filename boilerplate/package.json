@@ -4,10 +4,11 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "gulp-babel": "^8.0.0-beta.2",
-    "babel-polyfill": "^6.26.0",
     "npm": "^6.12.0"
   },
   "devDependencies": {
@@ -21,7 +22,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "scripts": {
-    "dev-server":"webpack-dev-server --mode development",
+    "dev-server": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
   "author": "",
